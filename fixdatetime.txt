@@ -1,0 +1,29 @@
+import csv
+
+mypath = "~/ndacc/"
+name1 = "NDACC_WOUDC_csv.csv"
+
+fileopen = open(name1, 'r')
+filelines = fileopen.readlines()
+edit_filelines = filelines
+
+for l in range(1,len(filelines),1):
+  c=0
+  while c<10:
+    for s in range(0,len(filelines[l]),1):
+      if filelines[l][s]==",":
+        c+=1
+      if c>10:
+        break
+    break
+  print(c)
+  if c==11:
+    line2edit = filelines[l]
+    line2edit = line2edit[0:s] + "Z" + line2edit[s:len(line2edit)]
+    line2edit = line2edit[0:s+21] + "Z" + line2edit[s+21:len(line2edit)]
+    print(line2edit)
+    edit_filelines[l] = line2edit
+
+ndacc_file = open(name1, "w")
+ndacc_file.writelines(edit_filelines)
+ndacc_file.close()
